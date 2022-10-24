@@ -4,8 +4,9 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 
-.idea/
-
 **/*.xml
+!.idea/**/*.xml
 
 **/appsettings.*.json
+
+**/node_modules
