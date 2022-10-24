@@ -19,7 +19,9 @@ public static class ServicesExtension
     /// <summary>
     /// 所有加载的程序集
     /// </summary>
-    private static Assembly[] AllAssemblies => AppDomain.CurrentDomain.GetAssemblies().OrderBy(assembly => assembly.FullName).ToArray();
+    private static Assembly[] AllAssemblies => AppDomain.CurrentDomain.GetAssemblies()
+        .Where(assembly => assembly.FullName!.StartsWith("ThreeThings"))
+        .OrderBy(assembly => assembly.FullName).ToArray();
 
     private static Type[] AllTypes => AllAssemblies.SelectMany(assembly => assembly.GetTypes()).ToArray();
 
