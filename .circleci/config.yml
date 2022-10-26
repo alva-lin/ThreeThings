@@ -1,0 +1,27 @@
+version: 2.1
+orbs:
+  docker: circleci/docker@2.1.3
+  github-cli: circleci/github-cli@2.1.0
+workflows:
+  example-workflow:
+    jobs:
+      - clone:
+          context: ALVA
+      - docker/publish:
+          context: ALVA
+          requires:
+            - clone
+          docker-username: REGISTRY_USER
+          docker-password: REGISTRY_PWD
+          image: asjun/three-things-api
+          path: src/ThreeThings.Api
+          tag: latest
+          remote-docker-dlc: true
+jobs:
+  clone:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - github-cli/setup:
+          token: GITHUB_TOKEN
+      - github-cli/clone

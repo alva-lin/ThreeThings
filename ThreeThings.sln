@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{9A9ABAB2
 		.gitignore = .gitignore
 		README.md = README.md
 		global.json = global.json
+		.circleci\config.yml = .circleci\config.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreeThings.Utils", "src\ThreeThings.Utils\ThreeThings.Utils.csproj", "{570EBF93-6521-488D-A12A-0F3C2B473B78}"
