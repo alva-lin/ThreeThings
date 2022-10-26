@@ -22,7 +22,7 @@ namespace ThreeThings.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ThreeThings.Data.Models.TodoItem", b =>
+            modelBuilder.Entity("ThreeThings.Data.Models.TaskItem", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +68,7 @@ namespace ThreeThings.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TodoItems");
+                    b.ToTable("TaskItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
-using ThreeThings.Data.Dto.TodoItemDto;
+using ThreeThings.Data.Dto.TaskItemDto;
 using ThreeThings.Data.Models;
 using ThreeThings.Services;
 using ThreeThings.Utils.Common;
@@ -15,15 +15,15 @@ namespace ThreeThings.Api.Controllers;
 /// <summary>
 /// 待办事项接口
 /// </summary>
-public class TodoItemController : BasicController
+public class TaskItemController : BasicController
 {
-    private readonly Lazy<TodoItemService> _todoItemService;
+    private readonly Lazy<TaskItemService> _taskService;
 
     private readonly IMapper _mapper;
 
-    public TodoItemController(Lazy<TodoItemService> todoItemService, IMapper mapper)
+    public TaskItemController(Lazy<TaskItemService> taskService, IMapper mapper)
     {
-        _todoItemService = todoItemService;
+        _taskService = taskService;
         _mapper          = mapper;
     }
 
@@ -34,10 +34,10 @@ public class TodoItemController : BasicController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public async Task<ResponseResult<TodoItemViewDto?>> GetAsync(int id, CancellationToken cancellationToken)
+    public async Task<ResponseResult<TaskItemViewDto?>> GetAsync(int id, CancellationToken cancellationToken)
     {
-        var item = await _todoItemService.Value.FindAsync(id, cancellationToken: cancellationToken);
-        return _mapper.Map<TodoItemViewDto>(item);
+        var item = await _taskService.Value.FindAsync(id, cancellationToken: cancellationToken);
+        return _mapper.Map<TaskItemViewDto>(item);
     }
 
     /// <summary>
@@ -46,10 +46,10 @@ public class TodoItemController : BasicController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet()]
-    public async Task<ResponseListResult<TodoItemViewDto>> GetListAsync(CancellationToken cancellationToken)
+    public async Task<ResponseListResult<TaskItemViewDto>> GetListAsync(CancellationToken cancellationToken)
     {
-        var (data, totalCount) = await _todoItemService.Value.GetAllAsync(cancellationToken);
-        return (_mapper.Map<List<TodoItemViewDto>>(data), totalCount);
+        var (data, totalCount) = await _taskService.Value.GetAllAsync(cancellationToken);
+        return (_mapper.Map<List<TaskItemViewDto>>(data), totalCount);
     }
 
     /// <summary>
@@ -59,13 +59,13 @@ public class TodoItemController : BasicController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<ResponseResult<TodoItemViewDto?>> AddAsync(
-        [FromBody] TodoItemAddDto dto,
+    public async Task<ResponseResult<TaskItemViewDto?>> AddAsync(
+        [FromBody] TaskItemAddDto dto,
         CancellationToken cancellationToken)
     {
-        var item  = _mapper.Map<TodoItemAddDto, TodoItem>(dto);
-        var entry = await _todoItemService.Value.AddAsync(item, cancellationToken);
-        return _mapper.Map<TodoItemViewDto>(entry.Entity);
+        var item  = _mapper.Map<TaskItemAddDto, TaskItem>(dto);
+        var entry = await _taskService.Value.AddAsync(item, cancellationToken);
+        return _mapper.Map<TaskItemViewDto>(entry.Entity);
     }
 
     /// <summary>
@@ -76,20 +76,20 @@ public class TodoItemController : BasicController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPatch("{id}")]
-    public async Task<ResponseResult<TodoItemViewDto?>> UpdateAsync(
+    public async Task<ResponseResult<TaskItemViewDto?>> UpdateAsync(
         long id,
-        [FromBody] JsonPatchDocument<TodoItemUpdateDto> jsonPatch,
+        [FromBody] JsonPatchDocument<TaskItemUpdateDto> jsonPatch,
         CancellationToken cancellationToken)
     {
-        var item = await _todoItemService.Value.GetAsync(id, cancellationToken);
+        var item = await _taskService.Value.GetAsync(id, cancellationToken);
 
-        var dto = _mapper.Map<TodoItemUpdateDto>(item);
+        var dto = _mapper.Map<TaskItemUpdateDto>(item);
         jsonPatch.ApplyToSafely(dto, ModelState);
         _mapper.Map(dto, item);
         
-        var entry = await _todoItemService.Value.UpdateAsync(item, cancellationToken);
+        var entry = await _taskService.Value.UpdateAsync(item, cancellationToken);
         
-        return _mapper.Map<TodoItemViewDto>(entry.Entity);
+        return _mapper.Map<TaskItemViewDto>(entry.Entity);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public class TodoItemController : BasicController
     [HttpPost("complete/{id}")]
     public Task CompleteAsync(long id, CancellationToken cancellationToken)
     {
-        return _todoItemService.Value.CompleteAsync(id, cancellationToken);
+        return _taskService.Value.CompleteAsync(id, cancellationToken);
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public class TodoItemController : BasicController
     [HttpPost("restore/{id}")]
     public Task RestoreAsync(long id, CancellationToken cancellationToken)
     {
-        return _todoItemService.Value.RestoreAsync(id, cancellationToken);
+        return _taskService.Value.RestoreAsync(id, cancellationToken);
     }
 
     /// <summary>
@@ -125,6 +125,6 @@ public class TodoItemController : BasicController
     [HttpDelete("{id}")]
     public Task DeleteAsync(long id, CancellationToken cancellationToken)
     {
-        return _todoItemService.Value.DeleteAsync(id, cancellationToken);
+        return _taskService.Value.DeleteAsync(id, cancellationToken);
     }
 }

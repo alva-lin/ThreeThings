@@ -1,6 +1,6 @@
-﻿namespace ThreeThings.Data.Dto.TodoItemDto;
+﻿namespace ThreeThings.Data.Dto.TaskItemDto;
 
-public class TodoItemUpdateDto
+public class TaskItemUpdateDto
 {
     /// <summary>
     /// 标题

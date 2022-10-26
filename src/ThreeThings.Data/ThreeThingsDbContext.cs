@@ -24,7 +24,7 @@ public class ThreeThingsDbContext : DbContext
 
     #region DbSet
 
-    public virtual DbSet<TodoItem> TodoItems { get; set; }
+    public virtual DbSet<TaskItem> TaskItems { get; set; }
 
     #endregion
 

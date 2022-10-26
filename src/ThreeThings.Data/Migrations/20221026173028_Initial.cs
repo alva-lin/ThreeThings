@@ -11,7 +11,7 @@ namespace ThreeThings.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "TodoItems",
+                name: "TaskItems",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -30,14 +30,14 @@ namespace ThreeThings.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoItems", x => x.Id);
+                    table.PrimaryKey("PK_TaskItems", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TodoItems");
+                name: "TaskItems");
         }
     }
 }

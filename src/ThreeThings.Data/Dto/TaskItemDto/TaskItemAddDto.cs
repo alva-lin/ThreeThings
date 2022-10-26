@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ThreeThings.Data.Dto.TodoItemDto;
+namespace ThreeThings.Data.Dto.TaskItemDto;
 
-public class TodoItemAddDto
+public class TaskItemAddDto
 {
     /// <summary>
     /// 标题

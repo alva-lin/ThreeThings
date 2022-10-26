@@ -1,16 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ThreeThings.Utils.Common.Entities;
 
-using ThreeThings.Utils.Common.Entities;
+namespace ThreeThings.Data.Dto.TaskItemDto;
 
-namespace ThreeThings.Data.Models;
-
-public class TodoItem : SoftDeleteEntity<long>
+public class TaskItemViewDto : AuditEntity<long>
 {
     /// <summary>
     /// 标题
     /// </summary>
-    [Required]
-    [MinLength(4)]
     public string Title { get; set; } = null!;
 
     /// <summary>
